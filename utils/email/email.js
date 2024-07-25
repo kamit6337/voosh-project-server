@@ -19,7 +19,7 @@ const transporter = nodemailer.createTransport({
 
 const sendingEmail = async (to, subject, html) => {
   const mailOptions = {
-    from: `<project-name> <${EMAIL_USER}>`,
+    from: `Voosh Project <${EMAIL_USER}>`,
     to,
     subject,
     html,

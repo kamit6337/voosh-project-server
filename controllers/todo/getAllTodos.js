@@ -11,12 +11,6 @@ const getAllTodos = catchAsyncError(async (req, res, next) => {
     .lean()
     .sort("-updatedAt");
 
-  if (todos?.length === 0) {
-    return next(
-      new HandleGlobalError("Issue in getting todos. Please try later")
-    );
-  }
-
   res.json({
     message: "All todos",
     data: todos,
