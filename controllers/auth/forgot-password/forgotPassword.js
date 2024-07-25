@@ -1,11 +1,10 @@
 import catchAsyncError from "../../../utils/catchAsyncError.js";
 import nodemailer from "nodemailer";
-import ejs from "ejs";
-import path from "path";
 import { environment } from "../../../utils/environment.js";
 import HandleGlobalError from "../../../utils/HandleGlobalError.js";
 import User from "../../../models/UserModel.js";
-import generateWebToken from "../../../utils/generateWebToken.js";
+import resetPasswordLinkTemplate from "../../../utils/email/resetPasswordLinkTemplate.js";
+import { encrypt } from "../../../utils/encryption/encryptAndDecrypt.js";
 
 // Set up nodemailer transporter
 const transporter = nodemailer.createTransport({
@@ -30,37 +29,22 @@ const forgotPassword = catchAsyncError(async (req, res, next) => {
   }
 
   // MARK: GENERATE TOKEN BASED ON USER ID AND ITS EMAIL
-  const token = generateWebToken(
+  const token = encrypt(
     {
       id: findUser._id,
       email: findUser.email,
     },
-    {
-      expires: 15 * 60 * 1000, //15 minutes
-    }
+    15 * 60 * 1000 //15 minutes
   );
 
   const otpUrl = `${environment.CLIENT_URL}/createNewPassword?token=${token}&email=${email}`;
 
-  // Render HTML template with dynamic OTP
-  const htmlTemplate = await ejs.renderFile(path.join("views", "otp.ejs"), {
-    otpUrl,
-  });
+  const html = resetPasswordLinkTemplate(otpUrl);
 
-  // Set up email options
-  const mailOptions = {
-    from: `Notable ${environment.MY_GMAIL_ID}`,
-    to: email,
-    subject: "Your Reset Password Link for verification",
-    html: htmlTemplate,
-  };
+  await sendingEmail(email, "Reset Password Link", html);
 
-  // Send email
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      return res.status(500).json({ error: "Error sending email" });
-    }
-    res.json({ message: "Email sent successfully", info });
+  res.json({
+    message: "Send reset password link to user",
   });
 });
 

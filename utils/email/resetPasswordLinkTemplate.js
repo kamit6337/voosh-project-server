@@ -1,18 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OTP Email Template</title>
-  </head>
-  <body
-    style="
-      font-family: 'Arial', sans-serif;
-      background-color: #f2f2f2;
-      padding: 100px;
-    "
-  >
-    <table
+const resetPasswordLinkTemplate = (url) => {
+  return `
+  <table
       role="presentation"
       cellspacing="0"
       cellpadding="0"
@@ -49,7 +37,7 @@
                   <tr>
                     <td style="border-radius: 4px; background-color: #3cba54">
                       <a
-                        href="<%= otpUrl %>"
+                        href="${url}"
                         target="_blank"
                         style="
                           display: inline-block;
@@ -69,5 +57,8 @@
         </td>
       </tr>
     </table>
-  </body>
-</html>
+  
+  `;
+};
+
+export default resetPasswordLinkTemplate;

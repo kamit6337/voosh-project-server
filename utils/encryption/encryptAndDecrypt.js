@@ -6,8 +6,12 @@ const ENCRYPTION_IV = environment.ENCRYPTION_IV;
 
 const algorithm = "aes-256-cbc";
 
-export const encrypt = (obj) => {
-  const objStr = JSON.stringify({ ...obj, iat: Date.now(), exp: Date.now() });
+export const encrypt = (obj, expires = 0) => {
+  const objStr = JSON.stringify({
+    ...obj,
+    iat: Date.now(),
+    exp: Date.now() + expires,
+  });
 
   const cipher = crypto.createCipheriv(
     algorithm,
