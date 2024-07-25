@@ -4,9 +4,15 @@ import bcrypt from "bcryptjs";
 
 const userSchema = new mongoose.Schema(
   {
-    name: {
+    firstname: {
       type: String,
       required: true,
+      trim: true,
+    },
+    lastname: {
+      type: String,
+      required: true,
+      trim: true,
     },
     email: {
       type: String,
@@ -23,6 +29,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: null,
       select: false,
+      trim: true,
     },
     photo: {
       type: String,

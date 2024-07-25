@@ -1,19 +1,19 @@
 import HandleGlobalError from "../utils/HandleGlobalError.js";
 import catchAsyncError from "../utils/catchAsyncError.js";
-import { User } from "../models/UserModel.js";
-import verifyWebToken from "../utils/verifyWebToken.js";
+import User from "../models/UserModel.js";
 import Req from "../utils/Req.js";
+import { decrypt } from "../utils/encryption/encryptAndDecrypt.js";
 
 const protectRoute = catchAsyncError(async (req, res, next) => {
-  const { token } = Req(req);
+  const { _use } = Req(req);
 
-  if (!token) {
+  if (!_use) {
     return next(new HandleGlobalError("UnAuthorized Access", 403, "Failed"));
   }
 
-  const decoded = verifyWebToken(token);
+  const decoded = decrypt(_use);
 
-  const findUser = await User.findById(decoded.id);
+  const findUser = await User.findById(decoded.id).lean();
 
   if (!findUser) {
     return next(

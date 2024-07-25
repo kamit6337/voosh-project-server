@@ -1,4 +1,4 @@
-import { User } from "../../../models/UserModel.js";
+import User from "../../../models/UserModel.js";
 import HandleGlobalError from "../../../utils/HandleGlobalError.js";
 import catchAsyncError from "../../../utils/catchAsyncError.js";
 import { environment } from "../../../utils/environment.js";

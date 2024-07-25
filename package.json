@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node  --import ./utils/instrument.mjs index.js",
-    "dev": "nodemon --import ./utils/instrument.mjs index.js"
+    "dev": "nodemon --import ./utils/instrument.mjs index.js",
+    "update": "node update/update.js"
   },
   "keywords": [],
   "author": "",

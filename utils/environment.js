@@ -5,6 +5,7 @@ export const environment = {
   PORT: process.env.PORT,
   NODE_ENV: process.env.NODE_ENV,
   MONGO_DB_URI: process.env.MONGO_DB_URI,
+  JWT_SECRET_KEY: process.env.JWT_SECRET_KEY,
   CLIENT_URL: process.env.CLIENT_URL,
   GOOGLE_CLIENT_ID: process.env.GOOGLE_OAUTH_CLIENT_ID,
   GOOGLE_CLIENT_SECRET: process.env.GOOGLE_OAUTH_CLIENT_SECRET,

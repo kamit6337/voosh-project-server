@@ -2,6 +2,7 @@ import HandleGlobalError from "../../../utils/HandleGlobalError.js";
 import catchAsyncError from "../../../utils/catchAsyncError.js";
 import User from "../../../models/UserModel.js";
 import cookieOptions from "../../../utils/cookieOptions.js";
+import { encrypt } from "../../../utils/encryption/encryptAndDecrypt.js";
 
 const login = catchAsyncError(async (req, res, next) => {
   const { email, password } = req.body;
@@ -27,12 +28,10 @@ const login = catchAsyncError(async (req, res, next) => {
   }
 
   //   MARK: USER EMAIL AND PASSWORD IS CONFIRMED, SEND TOKEN AND MAKE LOGIN
-  const token = encrypt(
-    JSON.stringify({
-      id: findUser._id,
-      role: findUser.role,
-    })
-  );
+  const token = encrypt({
+    id: findUser._id,
+    role: findUser.role,
+  });
 
   res.cookie("_use", token, cookieOptions);
 

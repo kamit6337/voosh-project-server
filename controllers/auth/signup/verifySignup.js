@@ -25,18 +25,19 @@ const verifySignup = catchAsyncError(async (req, res, next) => {
     );
   }
 
-  const { otp, name, email, password } = decrypt(_sig);
+  const { otp, firstname, lastname, email, password } = decrypt(_sig);
 
-  if (otp !== userOtp) {
+  if (otp !== +userOtp) {
     return next(
       new HandleGlobalError("OTP is incorrect. Please provide correct OTP")
     );
   }
 
-  const profilePicUrl = `https://ui-avatars.com/api/?background=random&name=${name}&size=128&bold=true`;
+  const profilePicUrl = `https://ui-avatars.com/api/?background=random&name=${firstname}&size=128&bold=true`;
 
   const createUser = await User.create({
-    name,
+    firstname,
+    lastname,
     email,
     password,
     photo: profilePicUrl,
@@ -52,6 +53,8 @@ const verifySignup = catchAsyncError(async (req, res, next) => {
     id: createUser._id,
     role: createUser.role,
   });
+
+  res.clearCookie("_sig", cookieOptions);
 
   res.cookie("_use", token, cookieOptions);
 

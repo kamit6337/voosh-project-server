@@ -8,9 +8,9 @@ import { encrypt } from "../../../utils/encryption/encryptAndDecrypt.js";
 import generate8digitOTP from "../../../utils/javaScript/generate8digitOTP.js";
 
 const signup = catchAsyncError(async (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { firstname, lastname, email, password } = req.body;
 
-  if (!name || !email || !password) {
+  if (!firstname || !lastname || !email || !password) {
     return next(new HandleGlobalError("Not provided all field", 404));
   }
 
@@ -35,7 +35,8 @@ const signup = catchAsyncError(async (req, res, next) => {
 
   const token = encrypt({
     otp,
-    name,
+    firstname,
+    lastname,
     email,
     password,
   });

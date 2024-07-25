@@ -18,7 +18,7 @@ const OAuthLogin = catchAsyncError(async (req, res, next) => {
     _json: { name, email, picture },
   } = req.user;
 
-  let findUser = await User.findOne({ OAuthId: id });
+  let findUser = await User.findOne({ email });
 
   if (!findUser) {
     // MARK: IF NOT FIND USER

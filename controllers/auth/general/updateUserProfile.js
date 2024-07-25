@@ -1,4 +1,4 @@
-import { User } from "../../../models/UserModel.js";
+import User from "../../../models/UserModel.js";
 import catchAsyncError from "../../../utils/catchAsyncError.js";
 import bcrypt from "bcryptjs";
 import { environment } from "../../../utils/environment.js";

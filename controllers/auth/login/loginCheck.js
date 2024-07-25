@@ -5,13 +5,13 @@ import User from "../../../models/UserModel.js";
 import { decrypt } from "../../../utils/encryption/encryptAndDecrypt.js";
 
 const loginCheck = catchAsyncError(async (req, res, next) => {
-  const { token } = Req(req);
+  const { _use } = Req(req);
 
-  if (!token) {
+  if (!_use) {
     throw new Error("Your do not have active session. Please Login");
   }
 
-  const decoded = decrypt(token);
+  const decoded = decrypt(_use);
 
   const findUser = await User.findOne({
     _id: decoded.id,
@@ -33,7 +33,8 @@ const loginCheck = catchAsyncError(async (req, res, next) => {
   res.status(200).json({
     message: "User is present",
     _id: findUser._id,
-    name: findUser.name,
+    firstname: findUser.firstname,
+    lastname: findUser.lastname,
     photo: findUser.photo,
     email: findUser.email,
     role: findUser.role,
