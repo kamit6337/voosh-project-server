@@ -1,4 +1,3 @@
-import * as Sentry from "@sentry/node";
 import express from "express";
 import authRouter from "./routes/authRoutes.js";
 import todoRouter from "./routes/todoRoutes.js";
@@ -20,9 +19,6 @@ globalMiddlewares(app);
 // NOTE: DIFFERENT ROUTES
 app.use("/auth", authRouter);
 app.use("/todos", protectRoute, todoRouter);
-
-// The error handler must be registered before any other error middleware and after all controllers
-Sentry.setupExpressErrorHandler(app);
 
 // NOTE: UNIDENTIFIED ROUTES
 app.all("*", (req, res, next) => {
