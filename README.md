@@ -37,28 +37,35 @@ This is a Todos making website where you can create, update and delete Todos. As
 <li>nodemailer - <i>send link to email to create new password in case of forgot password</i></li>
 <li>express-mongo-sanitize - <i>prevent attack from NoSQL injection</i></li>
 <li>xss-clean - <i>prevent attack from XSS attack</i></li>
-<li>va - <i>prevent attack from XSS attack</i></li>
-
+<li>validator - <i>third-party library to validate email, string and pattern</i></li>
 </ul>
 
 
 ## Setup
 
 - fork this project into your own Github repo
-- create a .env file below index.html file
+- create a .env file below index.js file
 - vercel.json file is added for deployment in Vercel. If your want to deploy to other then delete it.
+- go to utils/corsOptions.js ⇒ replace my frontend url with yours or type "http://localhost:5173" for local 
 
 <h4>.env Variables</h4>
+  
+- NODE_ENV=(type "production" on deployed website, for local pc type "development")
+- CLIENT_URL=(deployed client url or http://localhost:5173) [More Info](https://github.com/Kamit6337/voosh-project-client)  
+- JWT_SECRET_KEY=(secret key , genearate by type this code in terminal)
+  ```openssl rand -base64 32```   
+- EXPIRES_IN=(expire time of user session in milliseconds like 84600000 for one day. Default is One Day)
+- MONGO_DB_URI=(mongoDB Atlas URI from [MongoDB Official Website](https://account.mongodb.com/account/login))
+- GOOGLE_OAUTH_CLIENT_ID=(if you want to integrate GoogleOauth Login. Get clinet ID and secret. From [Google Developer Console](https://console.cloud.google.com/))
+- GOOGLE_OAUTH_CLIENT_SECRET=
+- MY_GMAIL_ID=(your gmail Id to send user otp from your email. Ex:- example@gmail.com)
+- MY_GMAIL_PASSWORD=(not original password, but generate password for Websites. Ex:- dfgf dfdf gssg fdas)      
+  Go to your Gmail ⇒ Manage Your Google Account ⇒ type App Password in Search bar => generate Password
+- ENCRYPTION_KEY=(after forking, open it in VS Code, then type "npm run crypto. You will get ENCRYPTION_KEY and ENCRYPTION_IV. Copy and paste into your .env file)
+- ENCRYPTION_IV=
 
 
-- VITE_APP_SERVER_URL=(this-project-server url) For More info : [Server](https://github.com/Kamit6337/voosh-project-server)
-- VITE_APP_NODE_ENV=(type "production" on deployed website, for local pc type "development")
-- VITE_APP_GT4_MEASUREMENT_ID=(in case you want to add Google Analytics. Get your Measurement ID from [Google Analytics](https://google.com/analytics) after deploy your frontend website because you will need deployed url.
-
-
-
-
-
+ALL ENVIRONMENT VARIABLE IS IMPORTANT FOR BETTER FUNCTIONING AND GET ALL BENEFITS AND FEATURES.
 
 ## Screenshots
 Here are the screenshots of this project.
