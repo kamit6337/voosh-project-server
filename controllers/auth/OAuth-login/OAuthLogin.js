@@ -23,8 +23,12 @@ const OAuthLogin = catchAsyncError(async (req, res, next) => {
   if (!findUser) {
     // MARK: IF NOT FIND USER
 
+    const firstname = name.split(" ")[0];
+    const lastname = name.split(" ").at(-1);
+
     const createUser = await User.create({
-      name,
+      firstname,
+      lastname,
       email,
       photo: picture,
       OAuthId: id,
