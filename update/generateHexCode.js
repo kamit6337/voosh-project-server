@@ -5,7 +5,7 @@ const generateHexCode = (length) => {
 };
 
 const hex32 = generateHexCode(32);
-console.log("32-character hex code:", hex32);
+console.log("ENCRYPTION_KEY:", hex32);
 
 const hex16 = generateHexCode(16);
-console.log("16-character hex code:", hex16);
+console.log("ENCRYPTION_IV", hex16);
