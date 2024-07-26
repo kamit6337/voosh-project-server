@@ -5,6 +5,7 @@ import HandleGlobalError from "../../../utils/HandleGlobalError.js";
 import User from "../../../models/UserModel.js";
 import resetPasswordLinkTemplate from "../../../utils/email/resetPasswordLinkTemplate.js";
 import { encrypt } from "../../../utils/encryption/encryptAndDecrypt.js";
+import sendingEmail from "../../../utils/email/email.js";
 
 // Set up nodemailer transporter
 const transporter = nodemailer.createTransport({
@@ -25,7 +26,12 @@ const forgotPassword = catchAsyncError(async (req, res, next) => {
   const findUser = await User.findOne({ email });
 
   if (!findUser) {
-    return next(new HandleGlobalError("You are not our customer", 403));
+    return next(
+      new HandleGlobalError(
+        "You are not our customer. Please signup first",
+        403
+      )
+    );
   }
 
   // MARK: GENERATE TOKEN BASED ON USER ID AND ITS EMAIL
@@ -37,7 +43,7 @@ const forgotPassword = catchAsyncError(async (req, res, next) => {
     15 * 60 * 1000 //15 minutes
   );
 
-  const otpUrl = `${environment.CLIENT_URL}/createNewPassword?token=${token}&email=${email}`;
+  const otpUrl = `${environment.CLIENT_URL}/newPassword?token=${token}&email=${email}`;
 
   const html = resetPasswordLinkTemplate(otpUrl);
 
