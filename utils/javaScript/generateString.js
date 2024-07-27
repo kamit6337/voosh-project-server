@@ -1,8 +1,6 @@
-import { environment } from "../environment.js";
 import crypto from "crypto";
 
 const generateString = (length = 25) => {
-  // const characters = environment.STRING_CHARACTERS;
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!!@$^*&+-/*|<>/?";
 

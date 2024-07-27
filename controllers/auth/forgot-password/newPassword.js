@@ -2,7 +2,6 @@ import User from "../../../models/UserModel.js";
 import HandleGlobalError from "../../../utils/HandleGlobalError.js";
 import catchAsyncError from "../../../utils/catchAsyncError.js";
 import { decrypt } from "../../../utils/encryption/encryptAndDecrypt.js";
-import { environment } from "../../../utils/environment.js";
 import bcrypt from "bcryptjs";
 
 const newPassword = catchAsyncError(async (req, res, next) => {
