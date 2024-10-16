@@ -30,6 +30,11 @@ jobs:
       # Step 4: Run tests
       - name: Run tests
         run: npm test
+        env:
+          # Provide environment variables from GitHub Secrets
+          CLIENT_URL: ${{ secrets.CLIENT_URL }}
+          MY_GMAIL_ID: ${{ secrets.MY_GMAIL_ID }}
+          MY_GMAIL_PASSWORD: ${{ secrets.MY_GMAIL_PASSWORD }}
 
   build-and-push:
     runs-on: ubuntu-latest
