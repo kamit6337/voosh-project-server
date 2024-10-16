@@ -54,8 +54,10 @@ This is a Todos making website where you can create, update and delete Todos. As
 - NODE_ENV=(type "production" on deployed website, for local pc type "development")
 - CLIENT_URL=(deployed client url or http://localhost:5173) [More Info](https://github.com/Kamit6337/voosh-project-client)  
 - JWT_SECRET_KEY=(secret key , genearate by type this code in terminal)
-  ```openssl rand -base64 32```   
-- EXPIRES_IN=(expire time of user session in milliseconds like 84600000 for one day. Default is One Day)
+  
+  ```openssl rand -base64 32```
+  
+- EXPIRES_IN=(expire time of user session in milliseconds like 84600000 for one day. Default is 30 Days)
 - MONGO_DB_URI=(mongoDB Atlas URI from [MongoDB Official Website](https://account.mongodb.com/account/login))
 - GOOGLE_OAUTH_CLIENT_ID=(if you want to integrate GoogleOauth Login. Get clinet ID and secret. From [Google Developer Console](https://console.cloud.google.com/))
 - GOOGLE_OAUTH_CLIENT_SECRET=
