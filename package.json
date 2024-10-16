@@ -6,9 +6,11 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js",
+    "dev": "nodemon --legacy-watch index.js",
     "update": "node update/update.js",
-    "crypto": "node update/generateHexCode.js"
+    "crypto": "node update/generateHexCode.js",
+    "test": "jest",
+    "test:watch": "jest --watchAll"
   },
   "keywords": [],
   "author": "",
@@ -32,6 +34,10 @@
     "xss-clean": "^0.1.4"
   },
   "devDependencies": {
+    "@babel/core": "^7.25.8",
+    "@babel/preset-env": "^7.25.8",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
     "nodemon": "^3.0.3"
   }
 }

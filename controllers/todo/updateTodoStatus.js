@@ -1,4 +1,4 @@
-import Todo from "../../models/TodoModel.js";
+import updateTodoDB from "../../databases/Todo/updateTodoDB.js";
 import catchAsyncError from "../../utils/catchAsyncError.js";
 import HandleGlobalError from "../../utils/HandleGlobalError.js";
 
@@ -6,21 +6,14 @@ const updateTodoStatus = catchAsyncError(async (req, res, next) => {
   const { id, status } = req.body;
 
   if (!id || !status) {
-    return next(new HandleGlobalError("All fields data is not prvided", 404));
+    return next(new HandleGlobalError("All fields are required", 404));
   }
 
-  const todo = await Todo.findOneAndUpdate(
-    {
-      _id: id,
-    },
-    {
-      status,
-    },
-    {
-      new: true,
-      runValidators: true,
-    }
-  );
+  const obj = {
+    status,
+  };
+
+  const todo = await updateTodoDB(id, obj);
 
   if (!todo) {
     return next(

@@ -16,6 +16,10 @@ const todoSchema = new Schema(
       required: [true, "Description must be provided"],
       trim: true,
     },
+    dueDate: {
+      type: Date,
+      required: [true, "Please provide Due Date"],
+    },
     status: {
       type: String,
       enum: ["pending", "progress", "done"],

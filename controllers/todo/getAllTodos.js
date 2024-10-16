@@ -1,15 +1,10 @@
-import Todo from "../../models/TodoModel.js";
+import getAllTodoDB from "../../databases/Todo/getAllTodoDB.js";
 import catchAsyncError from "../../utils/catchAsyncError.js";
-import HandleGlobalError from "../../utils/HandleGlobalError.js";
 
 const getAllTodos = catchAsyncError(async (req, res, next) => {
   const userId = req.userId;
 
-  const todos = await Todo.find({
-    user: userId,
-  })
-    .lean()
-    .sort("-updatedAt");
+  const todos = await getAllTodoDB(userId);
 
   res.json({
     message: "All todos",

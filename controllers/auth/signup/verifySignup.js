@@ -1,4 +1,4 @@
-import User from "../../../models/UserModel.js";
+import postCreateUser from "../../../databases/User/postCreateUser.js";
 import catchAsyncError from "../../../utils/catchAsyncError.js";
 import cookieOptions from "../../../utils/cookieOptions.js";
 import {
@@ -35,13 +35,15 @@ const verifySignup = catchAsyncError(async (req, res, next) => {
 
   const profilePicUrl = `https://ui-avatars.com/api/?background=random&name=${firstname}&size=128&bold=true`;
 
-  const createUser = await User.create({
+  const obj = {
     firstname,
     lastname,
     email,
     password,
     photo: profilePicUrl,
-  });
+  };
+
+  const createUser = await postCreateUser(obj);
 
   if (!createUser) {
     return next(

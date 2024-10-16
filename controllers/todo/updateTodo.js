@@ -1,27 +1,21 @@
-import Todo from "../../models/TodoModel.js";
+import updateTodoDB from "../../databases/Todo/updateTodoDB.js";
 import catchAsyncError from "../../utils/catchAsyncError.js";
 import HandleGlobalError from "../../utils/HandleGlobalError.js";
 
 const updateTodo = catchAsyncError(async (req, res, next) => {
-  const { id, title, description } = req.body;
+  const { id, title, description, dueDate } = req.body;
 
-  if (!id || !title || !description) {
+  if (!id || !title || !description || !dueDate) {
     return next(new HandleGlobalError("All fields are required", 404));
   }
 
-  const todo = await Todo.findOneAndUpdate(
-    {
-      _id: id,
-    },
-    {
-      title,
-      description,
-    },
-    {
-      new: true,
-      runValidators: true,
-    }
-  );
+  const obj = {
+    title,
+    description,
+    dueDate,
+  };
+
+  const todo = await updateTodoDB(id, obj);
 
   if (!todo) {
     return next(

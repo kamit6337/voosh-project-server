@@ -1,4 +1,4 @@
-import Todo from "../../models/TodoModel.js";
+import deleteTodoDB from "../../databases/Todo/deleteTodoDB.js";
 import catchAsyncError from "../../utils/catchAsyncError.js";
 import HandleGlobalError from "../../utils/HandleGlobalError.js";
 
@@ -9,9 +9,7 @@ const deleteTodo = catchAsyncError(async (req, res, next) => {
     return next(new HandleGlobalError("Id must be provided", 404));
   }
 
-  await Todo.deleteOne({
-    _id: id,
-  });
+  await deleteTodoDB(id);
 
   res.json({
     message: "Deleted successfully",

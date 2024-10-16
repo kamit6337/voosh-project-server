@@ -1,8 +1,8 @@
 import HandleGlobalError from "../../../utils/HandleGlobalError.js";
 import catchAsyncError from "../../../utils/catchAsyncError.js";
 import Req from "../../../utils/Req.js";
-import User from "../../../models/UserModel.js";
 import { decrypt } from "../../../utils/encryption/encryptAndDecrypt.js";
+import getUserById from "../../../databases/User/getUserById.js";
 
 const loginCheck = catchAsyncError(async (req, res, next) => {
   const { _use } = Req(req);
@@ -13,9 +13,7 @@ const loginCheck = catchAsyncError(async (req, res, next) => {
 
   const decoded = decrypt(_use);
 
-  const findUser = await User.findOne({
-    _id: decoded.id,
-  });
+  const findUser = await getUserById(decoded.id);
 
   if (!findUser) {
     return next(
@@ -26,11 +24,11 @@ const loginCheck = catchAsyncError(async (req, res, next) => {
   // MARK: CHECK UPDATED-AT WHEN PASSWORD UPDATE, SO LOGIN AGAIN IF PASSWORD RESET
   const updatedAtInMilli = new Date(findUser.updatedAt).getTime();
 
-  if (decoded.iat * 1000 + 5000 <= updatedAtInMilli) {
+  if (decoded.iat + 5000 <= updatedAtInMilli) {
     return next(new HandleGlobalError("Please login again...", 403));
   }
 
-  res.status(200).json({
+  res.json({
     message: "User is present",
     _id: findUser._id,
     firstname: findUser.firstname,

@@ -1,8 +1,8 @@
-import User from "../../../models/UserModel.js";
 import catchAsyncError from "../../../utils/catchAsyncError.js";
 import bcrypt from "bcryptjs";
 import { environment } from "../../../utils/environment.js";
 import HandleGlobalError from "../../../utils/HandleGlobalError.js";
+import patchUserProfile from "../../../databases/User/patchUserProfile.js";
 
 const updateUserProfile = catchAsyncError(async (req, res, next) => {
   const { id, name, password } = req.body;
@@ -20,17 +20,7 @@ const updateUserProfile = catchAsyncError(async (req, res, next) => {
     obj.password = hashPassword;
   }
 
-  const updateUser = await User.findOneAndUpdate(
-    {
-      _id: id,
-    },
-    {
-      ...obj,
-    },
-    {
-      new: true,
-    }
-  );
+  const updateUser = await patchUserProfile(id, obj);
 
   res.status(200).json({
     message: "User profile has been updated",
