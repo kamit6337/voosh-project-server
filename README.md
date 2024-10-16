@@ -1,7 +1,7 @@
 # Voosh Project
 
 This is a assignment project from Voosh Food Technology   
-You can visit the [Live website](https://voosh-project-client.vercel.app/)  
+You can visit the [Live website](https://voosh-project-client.onrender.com)  
 
 ## Table of Contents
 
