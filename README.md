@@ -10,6 +10,7 @@ You can visit the [Live website](https://voosh-project-client.vercel.app/)
 - [Tech](#tech)
 - [Setup](#setup)
 - [Screenshots](#screenshots)
+- [Running](#running)
 
 ## Description
 
@@ -75,3 +76,23 @@ Here are the screenshots of this project.
 ![project1](https://amit-general-bucket.s3.ap-south-1.amazonaws.com/images/voosh3.png)
 ![project1](https://amit-general-bucket.s3.ap-south-1.amazonaws.com/images/voosh4.png)
 
+## Running
+
+To run this server locally using Docker Image :
+
+- install Docker Desktop from [Docker website](https://www.docker.com/products/docker-desktop) and start to run in background
+- create a folder in desktop, open this folder in VS Code
+- create a .env file
+- copy .env.example file variables from above and paste in .env file
+- start filling all environment variables
+
+### All environment variables is necessary except EXPIRES_IN to run smoothly and see all functionality
+
+- open VS Code terminal
+
+```
+docker run --env-file .env -p 8000:8000 kamit6337/voosh-project-server
+```
+
+- server started on http://localhost:8000
+- check by go to url: http://localhost:8000, you will get a response means server is working fine
